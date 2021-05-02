@@ -101,6 +101,13 @@ def check():
         # Cool, they found a new word
         matches.append(text)
         flask.session["matches"] = matches
+        flask.flash("found {}".format(text))
+        # clear text box
+
+        rslt = {"found": (len(matches) >= flask.session["target_count"])}
+        # rslt = {"found": True}
+        return flask.jsonify(result=rslt)
+
     elif text in matches:
         flask.flash("You already found {}".format(text))
     elif not matched:
@@ -113,19 +120,21 @@ def check():
         assert False  # Raises AssertionError
 
 
+
     # Choose page:  Solved enough, or keep going?
+    # working
+
     if len(matches) >= flask.session["target_count"]:
-        length = len(text)
-        rslt = {"long_enough": length >= 5}
+        rslt = {"solved": (len(matches) >= flask.session["target_count"])}
         return flask.jsonify(result=rslt)
+    else:
+        rslt = {"solved": (len(matches) >= flask.session["target_count"])}
+        return flask.jsonify(result=rslt)
+
     #     length = len(text)
     #     rslt = {"long_enough": length >= 5}
     #     return flask.jsonify(result=rslt)
     #    # return flask.redirect(flask.url_for("success"))
-    else:
-        length = len(text)
-        rslt = {"long_enough": length >= 5}
-        return flask.jsonify(result=rslt)
     #     length = len(text)
     #     rslt = {"long_enough": length >= 5}
     #     return flask.jsonify(result=rslt)
