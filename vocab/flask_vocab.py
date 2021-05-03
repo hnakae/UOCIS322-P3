@@ -101,12 +101,12 @@ def check():
         # Cool, they found a new word
         matches.append(text)
         flask.session["matches"] = matches
-        flask.flash("found {}".format(text))
         # clear text box
-
-        rslt = {"found": (len(matches) >= flask.session["target_count"])}
-        # rslt = {"found": True}
+        rslt = {"found": text}
         return flask.jsonify(result=rslt)
+        # rslt = {"found": (len(matches) >= flask.session["target_count"])}
+        # # rslt = {"found": True}
+        # return flask.jsonify(result=rslt)
 
     elif text in matches:
         flask.flash("You already found {}".format(text))
@@ -125,11 +125,20 @@ def check():
     # working
 
     if len(matches) >= flask.session["target_count"]:
-        rslt = {"solved": (len(matches) >= flask.session["target_count"])}
+        rslt = {"solved": True}
         return flask.jsonify(result=rslt)
     else:
-        rslt = {"solved": (len(matches) >= flask.session["target_count"])}
+        rslt = {"solved": False}
         return flask.jsonify(result=rslt)
+
+
+    # if len(matches) == 1:
+    #
+    #     rslt = {"found": }
+    #     return flask.jsonify(result=rslt)
+    # else:
+    #     rslt = {"found": (len(matches) >= flask.session["target_count"])}
+    #     return flask.jsonify(result=rslt)
 
     #     length = len(text)
     #     rslt = {"long_enough": length >= 5}

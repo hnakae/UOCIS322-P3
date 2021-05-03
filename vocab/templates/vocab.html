@@ -84,22 +84,23 @@
          <!-- JavaScript will insert text here -->
          <p id="tiles"> </p>
          <br />
-          {% if session.matches|length is not equalto 0  %}
-          <h2>You found </h2>
-          <p id="results">
-          {% for match in session.matches %}
-          {{ match }}
-          {% endfor %}
-          </p>
-          {% endif %}
-          {% with messages = get_flashed_messages() %}
-          {% if messages %}
-          <!-- Mismatch, already found, etc. "flashed" from Python -->
-          {% for message in messages %}
-          <p class="message">{{ message }}</p>
-          {% endfor %}
-          {% endif %}
-          {% endwith %}
+
+         {% if session.matches|length is not equalto 0  %}
+         <h2>You found </h2>
+         <p id="results">
+         {% for match in session.matches %}
+         {{ match }}
+         {% endfor %}
+         </p>
+         {% endif %}
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+         <!-- Mismatch, already found, etc. "flashed" from Python -->
+         {% for message in messages %}
+         <p class="message">{{ message }}</p>
+         {% endfor %}
+         {% endif %}
+         {% endwith %}
 
          <script>
             // Suppress normal form submission
@@ -126,15 +127,10 @@
 
                $.getJSON( "/_check", { text: txt },
                           function(data) {
-                            rsval0 = data.result.found;
-                            rsval = data.result.solved;
-                            console.log("rsval: " + rsval)
-                            if(rsval0) {
-                              $("#response").html("found!");
-                            }
+                            // rsval0 = data.result.found;
+                            rsval = data.result.found;
                             if (rsval) {
-                               $("#response").html("Success!");
-                               // $('#results').html("found");
+                               $("#response").html("found word!"+rsval);
                                $("#attempt").val("");
                             } else {
                                $("#response").html("Keep going");
