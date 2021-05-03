@@ -1,3 +1,9 @@
+# Running the app:
+go to directory vocab and run venv\scripts\activate
+from venv, run python vocab.py and check localhost:5000.
+
+
+
 # UOCIS322 - Project 3 #
 A vocabulary anagrams game for primary school English Language Learners (ELL).
 
